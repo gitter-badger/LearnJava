@@ -36,7 +36,7 @@ public class Game {
     public void game(){
         while(moves < 10){ // Пока не получим подтверждение победы или не кончатся ходы
             setBoard((int)Helper.getUserInput(whoMoves), whoMoves); // Спросим ход и запишем его на доску
-            if(Helper.checkWin == true){break;} // Проверим условия победы. Если true, выйдем из цикла к результатам.
+            if(Helper.checkWin(board) == true){break;} // Проверим условия победы. Если true, выйдем из цикла к результатам.
             // Поменяем текущего игрока.
             // Прибавим число ходов.
         }
