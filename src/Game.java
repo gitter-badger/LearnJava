@@ -39,15 +39,17 @@ class Game {
             playerName = whoMoves == 1 ? playerOneName : playerTwoName;
             System.out.print("Ход " + moves + ". Ваш ход, " + playerName + ": ");
             Scanner scan = new Scanner(System.in);
-            playerMove = scan.nextInt() - 1;
+            playerMove = scan.nextInt() - 1; //Вычитаем единицу, чтобы для юзера поле было от 0 до 9
             // Тут надо сделать как-то проверку, что пришло число и обработать возможный облом
 
-            // Запишем ход на доску
+            // Запишем ход на доску, проверив сначала, что число в нужных пределах и такого хода еще не было.
             if(playerMove < 0 || playerMove > 8) {
                 System.out.println("Ошибочный номер ячейки!");
+                // И что дальше?
             }
             if(board[playerMove] != 0){
                 System.out.println("Ячейка занята");
+                // И что дальше?
             }
             board[playerMove] = whoMoves;
 
