@@ -1,8 +1,5 @@
 import java.io.*;
 
-/**
- * Created by Sergey on 13.08.2016.
- */
 public final class Helper {
 
     // Юзер вводит номер ячейки, куда ходит
