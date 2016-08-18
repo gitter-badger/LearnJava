@@ -27,6 +27,10 @@ class Game {
 
     //Пишем в указанную ячейку значение в соответствии с тем, какой игрок ходит. Если уже занято, ругаемся.
     private boolean setBoard(int i, int whoMoves) {
+        if(i < 0 || i > 8) {
+            System.out.println("Ошибочный номер ячейки!");
+            return false;
+        }
         if(board[i] != 0){
             System.out.println("Ячейка занята");
             return false;
@@ -38,13 +42,28 @@ class Game {
     // Игровой процесс
     public void play(){
         String winner = "Draw!";
+        int playerMove = -1;
+        String playerName;
         while(moves < 10){ // Пока не получим подтверждение победы или не кончатся ходы
-            setBoard(Helper.getUserInput(whoMoves), whoMoves); // Спросим ход и запишем его на доску
-            if(Helper.checkWin(board)){ // Нет ли победителя?
+            // Юзер вводит номер ячейки, куда ходит
+            playerName = whoMoves == 1 ? playerOneName : playerTwoName;
+            System.out.println("Ваш ход, " + playerName);
+            Scanner scan = new Scanner(System.in);
+            if(scan.hasNextInt()){
+                playerMove = scan.nextInt();
+            }
+            // Тут надо сделать как-то проверку, что пришло число и обработать возможный облом
+            scan.close();
+            if(setBoard(playerMove, whoMoves)){ // Запишем ход на доску
+                setBoard(playerMove, whoMoves);
+            } else {
+                System.out.println("Что-то пошло не так"); // А что, если не смогли?
+            }
+            if(Helper.checkWin(board)){ // Проверим условия победы. Если true, выйдем из цикла к результатам.
                 winner = "We have a winner! And it is ";
                 winner += whoMoves == 2 ? playerOneName : playerTwoName;
                 break;
-            } // Проверим условия победы. Если true, выйдем из цикла к результатам.
+            }
             whoMoves = whoMoves == 2 ? 1 : 2; // Поменяем текущего игрока.
             moves++;// Прибавим число ходов.
         }
