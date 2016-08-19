@@ -37,21 +37,39 @@ class Game {
         while(moves < 9){ // Пока не получим подтверждение победы или не кончатся ходы
             // Юзер вводит номер ячейки, куда ходит
             playerName = whoMoves == 1 ? playerOneName : playerTwoName;
-            System.out.print("Ход " + moves + ". Ваш ход, " + playerName + ": ");
-            Scanner scan = new Scanner(System.in);
-            playerMove = scan.nextInt() - 1; //Вычитаем единицу, чтобы для юзера поле было от 0 до 9
-            // Тут надо сделать как-то проверку, что пришло число и обработать возможный облом
+            System.out.print("Ход " + moves);
 
-            // Запишем ход на доску, проверив сначала, что число в нужных пределах и такого хода еще не было.
-            if(playerMove < 0 || playerMove > 8) {
-                System.out.println("Ошибочный номер ячейки!");
-                // И что дальше?
+            // Нарисуем текущее состояние доски
+            for (int i = 0; i < board.length; i++){
+                char content = 0;
+                if(board[i] != 1 && board[i] != 2){content = (char)(i+1);}
+                if(board[i] == 1){content = 'x';}
+                if(board[i] == 2){content = 'o';}
+                if (i%3 == 0){
+                    System.out.println(content);
+                } else {
+                    System.out.print(content);
+                }
             }
-            if(board[playerMove] != 0){
-                System.out.println("Ячейка занята");
-                // И что дальше?
+
+            while (true) {
+                System.out.print("Ваш ход, " + playerName + ": ");
+                Scanner scan = new Scanner(System.in);
+                playerMove = scan.nextInt() - 1; //Вычитаем единицу, чтобы для юзера поле было от 1 до 9
+                // Тут надо сделать как-то проверку, что пришло число и обработать возможный облом
+
+                // Запишем ход на доску, проверив сначала, что число в нужных пределах и такого хода еще не было.
+                if (playerMove < 0 || playerMove > 8) {
+                    System.out.println("Ошибочный номер ячейки!");
+                } else {
+                    if (board[playerMove] != 0) {
+                        System.out.println("Ячейка занята");
+                    } else {
+                        board[playerMove] = whoMoves;
+                        break;
+                    }
+                }
             }
-            board[playerMove] = whoMoves;
 
             if(Helper.checkWin(board) && moves > 4){ // Проверим условия победы. Если true, выйдем из цикла к результатам.
                 winner = "We have a winner! And it is ";
