@@ -40,11 +40,19 @@ class Game {
             System.out.print("Ход " + moves);
 
             // Нарисуем текущее состояние доски
-            for (int i = 0; i < board.length; i++){
+            for (int i : board){
                 char content = 0;
-                if(board[i] != 1 && board[i] != 2){content = (char)(i+1);}
-                if(board[i] == 1){content = 'x';}
-                if(board[i] == 2){content = 'o';}
+                switch (i){
+                    case 1:
+                        content = 'x';
+                        break;
+                    case 2:
+                        content = 'o';
+                        break;
+                    default:
+                        content = (char)(i+1);
+                        break;
+                }
                 if (i%3 == 0){
                     System.out.println(content);
                 } else {
