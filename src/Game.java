@@ -19,13 +19,15 @@ class Game {
        if(playerTwoName.length() == 0){playerTwoName = "Нолики";}
     }
 
-    //Возвращает значение ячейки по ее индексу. Ну и нахрена это нужно?
+    //Возвращает значение ячейки по ее индексу. Пригодится для класса AI?
     public int getBoard(int i) {
         return board[i];
     }
 
-    //Пишем в указанную ячейку значение в соответствии с тем, какой игрок ходит. Если уже занято, ругаемся.
-    private boolean setBoard(int i, int whoMoves) {
+    // Пишем в указанную ячейку значение в соответствии с тем, какой игрок ходит. Проверяем корректность хода.
+    // По хорошему, сюда надо утащить соответствующий код из метода play(), чтобы из AI его можно было позвать.
+    // Причем, тащить надо только проверки ввода и саму запись, но не запрос ввода.
+    private boolean setBoard(int cell, int whoMoves) {
         return true;
     }
 
@@ -35,13 +37,11 @@ class Game {
         int playerMove;
         String playerName;
         while(moves < 9){ // Пока не получим подтверждение победы или не кончатся ходы
-            // Юзер вводит номер ячейки, куда ходит
-            playerName = whoMoves == 1 ? playerOneName : playerTwoName;
             System.out.print("Ход " + moves);
 
             // Нарисуем текущее состояние доски
             for (int i : board){
-                char content = 0;
+                char content;
                 switch (i){
                     case 1:
                         content = 'x';
@@ -60,6 +60,8 @@ class Game {
                 }
             }
 
+            // Юзер вводит номер ячейки, куда ходит
+            playerName = whoMoves == 1 ? playerOneName : playerTwoName;
             while (true) {
                 System.out.print("Ваш ход, " + playerName + ": ");
                 Scanner scan = new Scanner(System.in);
