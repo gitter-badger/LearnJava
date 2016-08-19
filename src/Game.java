@@ -41,7 +41,7 @@ class Game {
 
             // Нарисуем текущее состояние доски
             for (int i : board){
-                char content;
+                char content; // Интересно, хватит ли char для двузначных чисел?
                 switch (i){
                     case 1:
                         content = 'x';
